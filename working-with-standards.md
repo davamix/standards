@@ -65,10 +65,11 @@ git commit -m "Add standards submodule"
 In `.devcontainer/devcontainer.json`:
 
 ```jsonc
-"postCreateCommand": "git submodule update --init --remote .standards"
+"postCreateCommand": "git submodule update --init .standards"
 ```
 
-So every freshly created container has `.standards/` populated before any work begins.
+So every freshly created container has `.standards/` populated (at the project's pinned
+commit) before any work begins.
 
 ### 3. Surface it to the AI assistant
 
@@ -98,8 +99,9 @@ assistant always sees a consistent, known version.
   git add .standards && git commit -m "Bump standards to v0.2.0"
   ```
 
-- `postCreateCommand` uses `--remote` for convenience, but the committed submodule pointer
-  is what defines the project's pinned version. Commit the pointer to lock it.
+- `git submodule update --init` checks out exactly the **committed** pointer — that's what
+  pins the version. (Avoid `--remote` in automation: it would silently move the submodule to
+  the branch tip and defeat pinning.)
 
 ## What belongs here vs. in a project
 
