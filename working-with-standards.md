@@ -1,10 +1,9 @@
 # Working with `standards`
 
 This repository is the **single source of truth** for the cross-cutting specifications
-shared by every application in the ecosystem (calendar, kanban, mind map, the AI
-assistant, …). Each project stays fully independent — its own code, containers, repo and
-devcontainer — yet they all stay aligned because they consume the *same* pinned copy of
-these documents.
+shared across a set of related projects. Each project stays fully independent — its own
+code, containers, repo and devcontainer — yet they all stay aligned because they consume
+the *same* pinned copy of these documents.
 
 This page explains how that works so that anyone (human or AI assistant) opening any
 project knows the convention.
@@ -39,7 +38,7 @@ standards/
   architecture.md            # shared architecture guidelines
   security.md                # shared security guidelines
   api-design.md              # shared API design guidelines
-  ROADMAP.md                 # deferred, ecosystem-level follow-ups
+  ROADMAP.md                 # deferred, cross-project follow-ups
   CHANGELOG.md               # what changed per release
 ```
 
@@ -57,7 +56,7 @@ Each consuming repo follows the same two-folder convention:
 ### 1. Add the submodule (once per project)
 
 ```bash
-git submodule add https://github.com/davamix/standards.git .standards
+git submodule add https://github.com/<your-org>/standards.git .standards
 git commit -m "Add standards submodule"
 ```
 
@@ -106,12 +105,12 @@ assistant always sees a consistent, known version.
 
 - **Here (`standards`)** — anything that should be true across *all* projects:
   architecture guidelines, security guidelines, API design conventions, shared design
-  tokens, ecosystem-wide decisions. Also ecosystem-level follow-ups in `ROADMAP.md`.
+  tokens, cross-project decisions. Also cross-project follow-ups in `ROADMAP.md`.
 - **In a project's `docs/`** — anything specific to that one project: its domain model,
   its own decisions, its own backlog.
 
-Rule of thumb: if a change would benefit calendar *and* kanban *and* a future app, it
-belongs here. If it only matters to one app, it belongs in that app's `docs/`.
+Rule of thumb: if a change would benefit more than one project, it belongs here. If it
+only matters to one project, it belongs in that project's `docs/`.
 
 ## Editing rules
 
