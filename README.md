@@ -15,6 +15,16 @@ this repo as a pinned git **submodule** at `.standards/`.
 | [ROADMAP.md](ROADMAP.md) | Deferred, cross-project follow-ups. |
 | [CHANGELOG.md](CHANGELOG.md) | What changed per release. |
 
+## Reusing this repo
+
+The **structure and convention** here are project-agnostic — the consumption mechanism
+(submodule + devcontainer hydration + `CLAUDE.md` imports), the versioning workflow, and
+this layout work for any set of projects (see
+[working-with-standards.md](working-with-standards.md)). The **guideline content** is
+stack-specific: [architecture.md](architecture.md), [security.md](security.md) and
+[api-design.md](api-design.md) capture *our* decisions. To reuse this repo, **fork it**,
+keep the structure, and replace those files with your own stack's guidelines.
+
 ## Quick start (consuming project)
 
 ```bash
