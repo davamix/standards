@@ -14,5 +14,5 @@ Initial structure.
   (submodule + devcontainer hydration + `CLAUDE.md` imports + versioning workflow).
 - Added stub guideline docs: [architecture.md](architecture.md), [security.md](security.md),
   [api-design.md](api-design.md).
-- Added [ROADMAP.md](ROADMAP.md) tracking deferred ecosystem-level upgrades (static docs
+- Added [ROADMAP.md](ROADMAP.md) tracking deferred cross-project upgrades (static docs
   site; Claude Code reviewer plugin).

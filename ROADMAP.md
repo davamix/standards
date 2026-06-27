@@ -1,6 +1,6 @@
 # Roadmap
 
-Deferred, **ecosystem-level** follow-ups — work that concerns the `standards` repo itself
+Deferred, **cross-project** follow-ups — work that concerns the `standards` repo itself
 or the shared tooling, and is therefore agnostic from any single consuming project. These
 were deliberately postponed so the core convention (submodule + devcontainer + `CLAUDE.md`
 imports) could land first.

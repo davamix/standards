@@ -1,9 +1,8 @@
 # standards
 
-Single source of truth for the **shared specifications** of the application ecosystem
-(calendar, kanban, mind map, AI assistant, …). Each app is its own independent repo and
-devcontainer; they stay aligned by consuming this repo as a pinned git **submodule** at
-`.standards/`.
+Single source of truth for the **shared specifications** of a set of related projects.
+Each project is its own independent repo and devcontainer; they stay aligned by consuming
+this repo as a pinned git **submodule** at `.standards/`.
 
 ## Contents
 
@@ -13,14 +12,14 @@ devcontainer; they stay aligned by consuming this repo as a pinned git **submodu
 | [architecture.md](architecture.md) | Shared architecture guidelines. |
 | [security.md](security.md) | Shared security guidelines. |
 | [api-design.md](api-design.md) | Shared API design guidelines. |
-| [ROADMAP.md](ROADMAP.md) | Deferred, ecosystem-level follow-ups. |
+| [ROADMAP.md](ROADMAP.md) | Deferred, cross-project follow-ups. |
 | [CHANGELOG.md](CHANGELOG.md) | What changed per release. |
 
 ## Quick start (consuming project)
 
 ```bash
 # 1. Add as a submodule
-git submodule add https://github.com/davamix/standards.git .standards
+git submodule add https://github.com/<your-org>/standards.git .standards
 
 # 2. Hydrate on container create — in .devcontainer/devcontainer.json:
 #    "postCreateCommand": "git submodule update --init --remote .standards"
