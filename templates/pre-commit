@@ -1,0 +1,13 @@
+#!/usr/bin/env bash
+# Reference pre-commit hook for ecosystem apps. Copy verbatim to your repo's
+# .githooks/pre-commit (enabled by post-create.sh via core.hooksPath=.githooks).
+# Blocks commits that introduce secrets; CI re-scans full history as a backstop.
+set -euo pipefail
+
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "⚠ gitleaks not installed — skipping local secret scan (CI will still check)."
+  echo "  Rebuild the dev container or install gitleaks to enable the pre-commit guard."
+  exit 0
+fi
+
+gitleaks git --pre-commit --redact --staged --verbose

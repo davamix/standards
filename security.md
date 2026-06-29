@@ -11,8 +11,10 @@ strongly recommended.
 - Inject secrets via **environment variables / container secrets**, never source. Document
   the *required variable names*, never their values. MUST.
 - Run a **pre-commit secret scan** (gitleaks) so secrets are caught before they're
-  committed. SHOULD (install via the devcontainer; see calendar's
-  `.devcontainer/post-create.sh` + `.githooks/pre-commit` for the reference setup).
+  committed. SHOULD. Copy [`templates/pre-commit`](templates/pre-commit) to your repo's
+  `.githooks/pre-commit` (used verbatim) and [`templates/post-create.sh`](templates/post-create.sh)
+  to `.devcontainer/post-create.sh` (hydrates `.standards`, installs gitleaks, enables the hook;
+  extend with project-specific setup as needed), wired via the devcontainer `postCreateCommand`.
 - CI MUST fail on any detected secret (see CI scanning below). This is the backstop for the
   pre-commit hook.
 
@@ -49,8 +51,27 @@ Every project's CI pipeline MUST include:
 
 - Delegate authentication to the **central identity provider** (our IdP: Logto) via
   OIDC/OAuth2. Apps **validate JWTs**; they MUST NOT store passwords or roll their own login.
+- **Browser apps use a backend-for-frontend (BFF).** The server runs the OIDC code flow and
+  keeps access/refresh tokens **server-side** (encrypted cookie); tokens MUST NOT be exposed to
+  browser JavaScript (OWASP ASVS V10.1.1). A public SPA holding access/refresh tokens is not
+  acceptable.
+- **Resource servers validate JWTs** with the issuer pinned to the IdP, the audience checked,
+  the signature verified via JWKS, lifetime enforced, and `alg:none` rejected. Each app has
+  **one API resource (audience)**; a token for another audience MUST be rejected. Identify the
+  user by `iss`+`sub` (which cannot be reassigned) — never from a client-supplied field.
+- **Authorize at a trusted layer.** Per-user / per-tenant data isolation is enforced
+  server-side — e.g. a data-layer query filter that **fails closed** when no subject is set
+  (blocking IDOR / BOLA), plus operation-level checks in the service layer. Never rely on
+  client-side checks. MUST.
 - **Service-to-service** calls use OAuth2 **client-credentials** (scoped machine tokens);
   no shared static API keys between apps. MUST.
+
+## Security baseline (OWASP ASVS)
+
+- Every app targets **OWASP ASVS 5.0 Level 2**. MUST.
+- Track conformance per app in `docs/security/asvs-l2/`: one file per ASVS chapter with a
+  per-requirement status (✅ / ❌ / ❓ / ➖) and `file:line` / PR evidence, plus a dashboard
+  index. The *tracker structure* is shared; the per-app status rows are project-local.
 
 ## Transport & data
 
