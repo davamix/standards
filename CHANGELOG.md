@@ -4,6 +4,17 @@ All notable changes to the shared standards are recorded here. The repo uses tag
 releases (`v0.1.0`, `v0.2.0`, …); consuming projects pin to a tag/commit and upgrade
 deliberately.
 
+## v0.4.0 — 2026-06-30
+
+Deployment modes + the standalone↔integrated transition.
+
+- [architecture.md](architecture.md): new **Deployment modes & joining the shared stack** —
+  every app runs standalone (bundled infra) or integrated (shared infra) with no code change.
+  When moving to the shared stack an app re-points its OIDC issuer at the **ecosystem-neutral**
+  host, re-registers its redirect URIs, and points persistence at the shared database as its
+  own least-privilege role. The issuer host is configuration, never an app-hardcoded name; the
+  shared composition lives in a separate platform repo and no app bundles another.
+
 ## v0.3.0 — 2026-06-29
 
 Promote shared engineering, auth, and API-error conventions.
