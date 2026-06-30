@@ -4,6 +4,15 @@ All notable changes to the shared standards are recorded here. The repo uses tag
 releases (`v0.1.0`, `v0.2.0`, …); consuming projects pin to a tag/commit and upgrade
 deliberately.
 
+## v0.5.0 — 2026-06-30
+
+Enforce the security gates (don't just run them).
+
+- [security.md](security.md): new **Gate enforcement** — `main` MUST be branch-protected to
+  require the CI checks (enforced for admins) so a red CI blocks landing code; and a release /
+  image-publish pipeline MUST re-run or depend on the same correctness + security gates (tests +
+  vulnerable-dependency audit) so a tag never ships a build that fails them.
+
 ## v0.4.0 — 2026-06-30
 
 Deployment modes + the standalone↔integrated transition.
