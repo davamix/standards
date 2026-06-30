@@ -33,6 +33,20 @@ Every project's CI pipeline MUST include:
 - **Pin third-party Actions** to a tag (SHOULD pin to a commit SHA) and let Dependabot keep
   them current.
 
+## Gate enforcement
+
+Scanning only protects you if a failing scan actually **blocks** progress. Both paths into a
+release MUST be gated and enforced, not advisory:
+
+- **Protect the default branch.** `main` MUST require the CI security/quality checks (secret
+  scan, vuln/misconfig scan, build/tests, dependency audit) to pass before merge — via branch
+  protection / a ruleset, **enforced for admins** — so a red CI blocks landing code instead of
+  relying on discipline. MUST.
+- **Releases must not ship a red build.** A tag/release or image-publish pipeline MUST re-run
+  (or `needs`) the same correctness + security gates as CI — tests and the
+  vulnerable-dependency audit at minimum — because tag-triggered pipelines don't run the
+  push/PR CI. A release that fails a gate MUST stop before publishing. MUST.
+
 ## Dependencies
 
 - **Dependabot** MUST be enabled for every package ecosystem the repo uses (e.g.
